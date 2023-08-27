@@ -5,31 +5,22 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class BfsLevelOrderTraversal {
-    static class TreeNode {
-        TreeNode left;
-        TreeNode right;
-        int value;
-        public TreeNode(int value){
-            this.value=value;
-        }
-    }
-
     static void levelOrderTraversal(TreeNode root){
         Queue<TreeNode> q = new LinkedList<>();
         q.add(root);
         while(!q.isEmpty()){
             int size = q.size();
-            ArrayList<Integer> list = new ArrayList<>();
+            ArrayList<Integer> currentLevelList = new ArrayList<>(size);
             while(size > 0){
                 TreeNode node=q.poll();
-                list.add(node.value);
+                currentLevelList.add(node.value);
                 if(node.left!=null)
                     q.add(node.left);
                 if(node.right!=null)
                     q.add(node.right);
                 size--;
             }
-            System.out.println(list);
+            System.out.println(currentLevelList);
         }
     }
 
@@ -45,6 +36,8 @@ public class BfsLevelOrderTraversal {
         right1.left=right2;
         right1.right=right21;
         root.right=right1;
+        right21.right=new TreeNode(10);
+        right21.left=new TreeNode(11);
 
         levelOrderTraversal(root);
     }
